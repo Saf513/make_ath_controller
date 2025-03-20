@@ -1,5 +1,0 @@
-{
-    "require": {
-        "illuminate/console": "^12.3"
-    }
-}
