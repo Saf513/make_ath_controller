@@ -18,7 +18,8 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^12.0"
+        "illuminate/support": "^12.0",
+         "safia/authcontroller": "*"
     },
     "extra": {
         "laravel": {
@@ -26,5 +27,12 @@
                 "Safia\\Authcontroller\\AuthControllerServiceProvider"
             ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../laravel-auth-generator"
+        }
+    ]
+    
 }
