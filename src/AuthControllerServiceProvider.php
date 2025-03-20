@@ -13,11 +13,17 @@ class AuthControllerServiceProvider extends ServiceProvider
             $this->commands([
                 MakeAuthControllerCommand::class,
             ]);
+            
+            $this->publishes([
+                __DIR__ . '/config/auth-controller.php' => config_path('auth-controller.php'),
+            ], 'auth-controller-config');
         }
     }
 
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/auth-controller.php', 'auth-controller'
+        );
     }
 }
