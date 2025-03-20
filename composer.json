@@ -28,5 +28,10 @@
             ]
         }
     }
-   
+   ,"repositories": [
+    {
+        "type": "path",
+        "url": "./packages/safia/authcontroller"
+    }
+]
 }
