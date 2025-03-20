@@ -24,7 +24,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Safia\\Authcontroller\\AuthControllerServiceProvider"
+              "Safia/Authcontroller/AuthControllerServiceProvider"
             ]
         }
     }
