@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\App;
 
 class MakeAuthControllerCommand extends Command
 {
@@ -23,7 +24,10 @@ class MakeAuthControllerCommand extends Command
     public function handle()
     {
         $name = $this->argument('name');
-        $path = app_path('Http/Controllers/' . $name . '.php');
+        
+        // Handle controllers in subdirectories
+        $name = str_replace('\\', '/', $name);
+        $path = App::basePath('app/Http/Controllers/' . $name . '.php');
 
         if ($this->files->exists($path)) {
             $this->error('Controller already exists!');
@@ -31,8 +35,12 @@ class MakeAuthControllerCommand extends Command
         }
 
         $this->makeDirectory(dirname($path));
-        $this->files->put($path, $this->buildClass($name));
+        $stub = $this->buildClass($name);
+        $this->files->put($path, $stub);
         $this->info('Authentication controller created successfully.');
+        
+        // Output the path for convenience
+        $this->line('Controller created at: ' . $path);
     }
 
     protected function makeDirectory($path)
@@ -46,26 +54,23 @@ class MakeAuthControllerCommand extends Command
 
     protected function buildClass($name)
     {
+        // Get stub content
         $stub = $this->files->get(__DIR__ . '/stubs/auth-controller.stub');
-
-        return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
-    }
-
-    protected function replaceNamespace(&$stub, $name)
-    {
-        $stub = str_replace(
-            ['{{ namespace }}'],
-            ['App\\Http\\Controllers'],
-            $stub
-        );
-
-        return $this;
-    }
-
-    protected function replaceClass($stub, $name)
-    {
-        $class = str_replace('/', '\\', $name);
-
-        return str_replace('{{ class }}', $class, $stub);
+        
+        // Calculate namespace
+        $namespace = 'App\\Http\\Controllers';
+        if (Str::contains($name, '/')) {
+            $directoryPath = Str::beforeLast($name, '/');
+            $namespace .= '\\' . str_replace('/', '\\', $directoryPath);
+        }
+        
+        // Get class name
+        $className = Str::afterLast($name, '/');
+        
+        // Replace placeholders
+        $stub = str_replace('{{ namespace }}', $namespace, $stub);
+        $stub = str_replace('{{ class }}', $className, $stub);
+        
+        return $stub;
     }
 }
