@@ -1,6 +1,6 @@
 {
     "name": "safia/authcontroller",
-    "description": "Création d'un contrôleur d'authentification avec les méthodes d'authentification",
+    "description": "Laravel authentication controller generator",
     "type": "library",
     "license": "MIT",
     "autoload": {
@@ -10,31 +10,21 @@
     },
     "authors": [
         {
-            "name": "safia-khoulaid",
+            "name": "safia",
             "email": "safiakhoulaid11@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-    "php": "^8.2",
-    "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
-    "illuminate/console": "^8.0|^9.0|^10.0|^11.0|^12.0"
-},
+        "php": "^8.2",
+        "illuminate/support": "^12.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
-              
-    "Safia\\Authcontroller\\AuthControllerServiceProvider"
-]
-
-            
+                "Safia\\Authcontroller\\AuthControllerServiceProvider"
+            ]
         }
     }
-   ,"repositories": [
-    {
-        "type": "path",
-        "url": "./packages/safia/authcontroller"
-    }
-]
 }
