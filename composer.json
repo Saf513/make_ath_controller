@@ -3,7 +3,6 @@
     "description": "Laravel authentication controller generator",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "authentication", "api", "controller", "generator"],
     "autoload": {
         "psr-4": {
             "Safia\\Authcontroller\\": "src/"
@@ -15,11 +14,9 @@
             "email": "safiakhoulaid11@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": "^8.0",
-         "safia/authcontroller": "*"
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0"
     },
     "extra": {
         "laravel": {
